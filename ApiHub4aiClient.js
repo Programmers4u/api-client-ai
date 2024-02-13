@@ -1,3 +1,5 @@
+import axios from "axios";
+
 class ApiHub4aiClient {
     constructor(apiKey) {
         this.apiKey = apiKey;
@@ -13,6 +15,7 @@ class ApiHub4aiClient {
         const response = await axios.get(`${apiUrl}/ping`, { headers });
         return response;
     }
+
     async listTasks() {
         const { apiKey, apiUrl } = this;
         const headers = {
@@ -22,14 +25,24 @@ class ApiHub4aiClient {
         const response = await axios.get(`${apiUrl}/tasks/list`, { headers });
         return response;
     }
-    async runTasks(request) {
+    async runTask(request) {
         const { apiKey, apiUrl } = this;
-        const { question, context, taskID } = request;
+        const { ask, context, taskID } = request;
         const headers = {
             apikey: apiKey,
             'content-type': 'application/json'
         };
         const response = await axios.post(`${apiUrl}/tasks/run`, JSON.stringify(request), { headers });
+        return response;
+    }
+    async deleteTask(request) {
+        const { apiKey, apiUrl } = this;
+        const { taskID } = request;
+        const headers = {
+            apikey: apiKey,
+            'content-type': 'application/json'
+        };
+        const response =  await axios.delete(`${apiUrl}/tasks/remove/${taskID}`, { headers })
         return response;
     }
 }
