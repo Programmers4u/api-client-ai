@@ -25,6 +25,7 @@ class ApiHub4aiClient {
         const response = await axios.get(`${apiUrl}/tasks/list`, { headers });
         return response;
     }
+
     async runTask(request) {
         const { apiKey, apiUrl } = this;
         const { ask, context, taskID } = request;
@@ -35,6 +36,7 @@ class ApiHub4aiClient {
         const response = await axios.post(`${apiUrl}/tasks/run`, JSON.stringify(request), { headers });
         return response;
     }
+    
     async deleteTask(request) {
         const { apiKey, apiUrl } = this;
         const { taskID } = request;
