@@ -1,8 +1,8 @@
-const { ApiHub4aiClient, requestObject } = require('./ApiHub4aiClient.js')
+const { AIClient, requestObject } = require('./index.js')
 
 const apiKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hcmNpbkBnYXRlc21zLmV1Iiwic3ViIjoiMTI1ZTBhNzMtZDJmNy00MGVlLTljMzYtOWVjMzhmMTIzNTM1Iiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE3MDg1MDcxNjQsImV4cCI6MTcwODgwNzE2NH0.iLWRwlzZ_Nk4Tuq3VVL3xfxkHT2_pAFY-4-P_Z0Xmzc'
 
-const api = new ApiHub4aiClient(apiKey);
+const api = new AIClient(apiKey);
 
 api.pingPong().then((result) => console.debug(result?.data))
 

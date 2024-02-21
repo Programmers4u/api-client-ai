@@ -6,7 +6,7 @@ const requestObject = {
     idTask: ""
 }
 
-class ApiHub4aiClient {
+class AIClient {
     constructor(apiKey) {
         this.apiKey = apiKey
         this.apiUrl = 'https://api.programmers4u.com'
@@ -37,9 +37,9 @@ class ApiHub4aiClient {
     async deleteTask(request) {
         const { headers, apiUrl } = this
         const { idTask } = request
-        const response =  await axios.delete(`${apiUrl}/tasks/remove/${idTask}`, { headers })
+        const response =  axios.delete(`${apiUrl}/tasks/remove/${idTask}`, { headers })
         return response
     }
 }
 
-module.exports = { ApiHub4aiClient, requestObject }
+module.exports = { AIClient, requestObject }
