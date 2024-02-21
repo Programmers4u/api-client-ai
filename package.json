@@ -1,6 +1,6 @@
 {
   "name": "p4u-client-ai",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./index.js",
   "author": "p4u",
   "license": "Apache-2.0",
