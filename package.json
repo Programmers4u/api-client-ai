@@ -1,6 +1,6 @@
 {
   "name": "p4u-ai-client",
-  "version": "1.0.0",
+  "version": "0.1",
   "main": "ApiHub4aiClient.js",
   "author": "p4u",
   "license": "MIT",
