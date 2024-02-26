@@ -41,15 +41,23 @@ class AIClient {
   }
 
   async pingPong() {
-    const { headers, apiUrl } = this;
-    const response = await axios.get(`${apiUrl}/ping`, { headers });
-    return response;
+    try {
+      const { headers, apiUrl } = this;
+      const response = await axios.get(`${apiUrl}/ping`, { headers });
+      return response;
+    } catch (err) {
+      throw err;
+    }
   }
 
   async listTasks() {
     const { headers, apiUrl } = this;
-    const response = await axios.get(`${apiUrl}/products/tasks`, { headers });
-    return response;
+    try {
+      const response = await axios.get(`${apiUrl}/products/tasks`, { headers });
+      return response;
+    } catch (err) {
+      throw err;
+    }
   }
 
   async runTask(request) {
@@ -60,7 +68,7 @@ class AIClient {
         JSON.stringify(request),
         { headers }
       );
-      return response;  
+      return response;
     } catch (err) {
       throw err;
     }
@@ -69,20 +77,31 @@ class AIClient {
   async deleteTask(request) {
     const { headers, apiUrl } = this;
     const { idTask } = request;
-    const response = await axios.delete(`${apiUrl}/products/tasks/${idTask}`, {
-      headers,
-    });
-    return response;
+    try {
+      const response = await axios.delete(
+        `${apiUrl}/products/tasks/${idTask}`,
+        {
+          headers,
+        }
+      );
+      return response;
+    } catch (err) {
+      throw err;
+    }
   }
 
   async createTask(request) {
     const { headers, apiUrl } = this;
-    const response = await axios.put(
-      `${apiUrl}/products/tasks/`,
-      { headers },
-      request
-    );
-    return response;
+    try {
+      const response = await axios.put(
+        `${apiUrl}/products/tasks/`,
+        { headers },
+        request
+      );
+      return response;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
