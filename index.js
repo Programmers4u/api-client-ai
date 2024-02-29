@@ -35,7 +35,7 @@ class AIClient {
     this.apiKey = apiKey;
     this.apiUrl = "https://api.programmers4u.com";
     this.headers = {
-      Authorization: `Bearer ${this.apiKey}`,
+      "x-api-key": this.apiKey,
       "content-type": "application/json",
     };
   }
