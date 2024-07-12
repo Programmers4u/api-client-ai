@@ -1,8 +1,24 @@
 {
-    "extends": "@tsconfig/node20/tsconfig.json",
-    "compilerOptions": {
-      "outDir": "dist"
-    },
-    "include": ["src"],
-    "exclude": ["node_modules"]
-  }
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "Node16",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES2021",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

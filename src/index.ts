@@ -1,30 +1,14 @@
 import axios from "axios";
-import { EGPTModels } from "./enums/gptModels.enum";
-
-const requestObject = {
-  ask: "",
-  context: "",
-  idTask: "",
-};
-
-const insertObject = {
-  name: "",
-  context: "",
-  model: "",
-  instruction: "",
-};
-
-
-const AudioModels = {
-  OAIWHISPER1: "whisper-1",
-  OAITTS1: "tts-1",
-};
+import { IRequest } from "./interfaces/request.interface";
+import { IInsert } from "./interfaces/insert.interface";
+import { IDelete } from "./interfaces/delete.interface";
 
 class AIClient {
-  apiKey: string;
-  apiUrl: string;
-  headers: { "x-api-key": any; "content-type": string; };
+  private apiKey: string;
+  private apiUrl: string;
+  private headers: { "x-api-key": any; "content-type": string; };
   constructor(apiKey: string) {
+    if(apiKey === '') throw new Error('[AIClient] apiKey is mandatory');
     this.apiKey = apiKey;
     this.apiUrl = "https://api.programmers4u.com";
     this.headers = {
@@ -53,7 +37,7 @@ class AIClient {
     }
   }
 
-  async runTask(request: any) {
+  async runTask(request:IRequest) {
     const { headers, apiUrl } = this;
     try {
       const response = await axios.post(
@@ -67,7 +51,7 @@ class AIClient {
     }
   }
 
-  async deleteTask(request: { idTask: any; }) {
+  async deleteTask(request:IDelete) {
     const { headers, apiUrl } = this;
     const { idTask } = request;
     try {
@@ -83,13 +67,13 @@ class AIClient {
     }
   }
 
-  async createTask(request: axios.AxiosRequestConfig<{ headers: { "x-api-key": any; "content-type": string; }; }> | undefined) {
+  async createTask(request:IInsert) {
     const { headers, apiUrl } = this;
     try {
       const response = await axios.put(
         `${apiUrl}/products/tasks/`,
-        { headers },
-        request
+        JSON.stringify(request),
+        { headers }
       );
       return response;
     } catch (err) {
@@ -99,8 +83,5 @@ class AIClient {
 }
 
 module.exports = {
-  AIClient,
-  requestObject,
-  insertObject,
-  AudioModels,
+  AIClient
 };
