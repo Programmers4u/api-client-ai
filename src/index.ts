@@ -3,85 +3,61 @@ import { IRequest } from "./interfaces/request.interface";
 import { IInsert } from "./interfaces/insert.interface";
 import { IDelete } from "./interfaces/delete.interface";
 
+/**
+ * AIClient class for interacting with the API at https://api.programmers4u.com.
+ * @constructor
+ * @param apiKey - The API key required for authentication.
+ */
 class AIClient {
-  private apiKey: string;
-  private apiUrl: string;
-  private headers: { "x-api-key": any; "content-type": string; };
-  constructor(apiKey: string) {
-    if(apiKey === '') throw new Error('[AIClient] apiKey is mandatory');
-    this.apiKey = apiKey;
-    this.apiUrl = "https://api.programmers4u.com";
+  private headers: { "x-api-key": string; "content-type": string };
+  private apiUrl = "https://api.programmers4u.com";
+
+  constructor(private apiKey: string) {
+    if (!apiKey) {
+      throw new Error("[AIClient] apiKey is mandatory");
+    }
     this.headers = {
       "x-api-key": this.apiKey,
       "content-type": "application/json",
     };
   }
 
-  async pingPong() {
+  private async makeRequest(method: string, endpoint: string, data?: any) {
     try {
-      const { headers, apiUrl } = this;
-      const response = await axios.get(`${apiUrl}/ping`, { headers });
+      const response = await axios({
+        method,
+        url: `${this.apiUrl}${endpoint}`,
+        headers: this.headers,
+        data: data ? JSON.stringify(data) : undefined,
+      });
       return response;
     } catch (err) {
       throw err;
     }
+  }
+
+  async pingPong() {
+    return this.makeRequest("GET", "/ping");
   }
 
   async listTasks() {
-    const { headers, apiUrl } = this;
-    try {
-      const response = await axios.get(`${apiUrl}/products/tasks`, { headers });
-      return response;
-    } catch (err) {
-      throw err;
-    }
+    return this.makeRequest("GET", "/products/tasks");
   }
 
-  async runTask(request:IRequest) {
-    const { headers, apiUrl } = this;
-    try {
-      const response = await axios.post(
-        `${apiUrl}/products/tasks/query`,
-        JSON.stringify(request),
-        { headers }
-      );
-      return response;
-    } catch (err) {
-      throw err;
-    }
+  async runTask(request: IRequest) {
+    return this.makeRequest("POST", "/products/tasks/query", request);
   }
 
-  async deleteTask(request:IDelete) {
-    const { headers, apiUrl } = this;
+  async deleteTask(request: IDelete) {
     const { idTask } = request;
-    try {
-      const response = await axios.delete(
-        `${apiUrl}/products/tasks/${idTask}`,
-        {
-          headers,
-        }
-      );
-      return response;
-    } catch (err) {
-      throw err;
-    }
+    return this.makeRequest("DELETE", `/products/tasks/${idTask}`);
   }
 
-  async createTask(request:IInsert) {
-    const { headers, apiUrl } = this;
-    try {
-      const response = await axios.put(
-        `${apiUrl}/products/tasks/`,
-        JSON.stringify(request),
-        { headers }
-      );
-      return response;
-    } catch (err) {
-      throw err;
-    }
+  async createTask(request: IInsert) {
+    return this.makeRequest("PUT", "/products/tasks/", request);
   }
 }
 
 module.exports = {
-  AIClient
+  AIClient,
 };
