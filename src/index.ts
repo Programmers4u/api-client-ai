@@ -1,4 +1,5 @@
-const axios = require("axios");
+import axios from "axios";
+import { EGPTModels } from "./enums/gptModels.enum";
 
 const requestObject = {
   ask: "",
@@ -13,17 +14,6 @@ const insertObject = {
   instruction: "",
 };
 
-const GPTModels = {
-  OAIGPT35Turbo: "gpt-3.5-turbo",
-  OAIGPT35Turbo1106: "gpt-3.5-turbo-1106",
-  OAIGPT35Turbo16k: "gpt-3.5-turbo-16k",
-  OAIGPT35TurboInstruct: "gpt-3.5-turbo-instruct",
-  OAIGPT4: "gpt-4",
-  OAIGPT432k: "gpt-4-32k",
-  OAIGPT4VisionPreview: "gpt-4-vision-preview",
-  OAIGPT41106Preview: "gpt-4-1106-preview",
-  // Mistral7BV1 : 'mistral_7b_v1'
-};
 
 const AudioModels = {
   OAIWHISPER1: "whisper-1",
@@ -31,7 +21,10 @@ const AudioModels = {
 };
 
 class AIClient {
-  constructor(apiKey) {
+  apiKey: string;
+  apiUrl: string;
+  headers: { "x-api-key": any; "content-type": string; };
+  constructor(apiKey: string) {
     this.apiKey = apiKey;
     this.apiUrl = "https://api.programmers4u.com";
     this.headers = {
@@ -60,7 +53,7 @@ class AIClient {
     }
   }
 
-  async runTask(request) {
+  async runTask(request: any) {
     const { headers, apiUrl } = this;
     try {
       const response = await axios.post(
@@ -74,7 +67,7 @@ class AIClient {
     }
   }
 
-  async deleteTask(request) {
+  async deleteTask(request: { idTask: any; }) {
     const { headers, apiUrl } = this;
     const { idTask } = request;
     try {
@@ -90,7 +83,7 @@ class AIClient {
     }
   }
 
-  async createTask(request) {
+  async createTask(request: axios.AxiosRequestConfig<{ headers: { "x-api-key": any; "content-type": string; }; }> | undefined) {
     const { headers, apiUrl } = this;
     try {
       const response = await axios.put(
@@ -109,6 +102,5 @@ module.exports = {
   AIClient,
   requestObject,
   insertObject,
-  GPTModels,
   AudioModels,
 };

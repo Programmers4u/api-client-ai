@@ -1,15 +1,31 @@
 {
   "name": "p4u-client-ai",
-  "version": "0.0.9",
-  "main": "./index.js",
+  "version": "0.1.0",
+  "main": "./src/index.ts",
   "author": "p4u",
   "license": "Apache-2.0",
-  "keywords": ["api", "ai", "ml", "client", "hub"],
+  "keywords": [
+    "api",
+    "ai",
+    "ml",
+    "client",
+    "hub"
+  ],
   "description": "Empower Your Apps with AI: Access Multiple Models, Automate Tasks, Create AI Agents Easily",
   "engines": {
-    "node": ">=18.7.0"
+    "node": ">=20.14.0"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "axios": "^1.6.5"
+  },
+  "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.14.10",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
   }
 }
