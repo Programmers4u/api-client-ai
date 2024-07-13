@@ -15,6 +15,7 @@
   "engines": {
     "node": ">=20.14.0"
   },
+  "repository": {"url": "https://github.com/Programmers4u/api-client-ai"},
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc"
