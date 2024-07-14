@@ -9,7 +9,9 @@
     "ai",
     "ml",
     "client",
-    "hub"
+    "hub",
+    "task",
+    "automation"
   ],
   "description": "Empower Your Apps with AI: Access Multiple Models, Automate Tasks, Create AI Agents Easily",
   "engines": {
