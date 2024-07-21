@@ -1,9 +1,10 @@
 {
   "name": "p4u-client-ai",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "./src/index.ts",
   "author": "p4u",
   "license": "Apache-2.0",
+  "homepage": "https://app.apihub4ai.com",
   "keywords": [
     "api",
     "api-rest",
@@ -22,7 +23,8 @@
   },
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc"
+    "build": "tsc",
+    "test": "tsc && node dist/test/index.js"
   },
   "dependencies": {
     "axios": ">=1.7.2"

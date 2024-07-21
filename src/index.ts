@@ -1,28 +1,55 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { IRequest } from "./interfaces/request.interface";
 import { IInsert } from "./interfaces/insert.interface";
 import { IDelete } from "./interfaces/delete.interface";
 
 /**
- * AIClient class for interacting with the API at https://api.programmers4u.com.
- * @constructor
- * @param apiKey - The API key required for authentication.
+ * AIClient class for interacting with the API at https://app.apihub4ai.com/doc
+ * Manages user authentication, task operations requests.
  */
-class AIClient {
-  private headers: { "x-api-key": string; "content-type": string };
+export default class AIClient {
+  private headers: { "content-type": string; Authorization: string } = {
+    "content-type": "application/json",
+    Authorization: "",
+  };
   private apiUrl = "https://api.programmers4u.com";
 
-  constructor(private apiKey: string) {
-    if (!apiKey) {
-      throw new Error("[AIClient] apiKey is mandatory");
-    }
-    this.headers = {
-      "x-api-key": this.apiKey,
-      "content-type": "application/json",
+  constructor() {}
+
+  /**
+ * Asynchronous method to log in with the provided username and password.
+ * 
+ * @param userName The username of the user.
+ * @param password The password of the user.
+ * @returns A Promise that resolves with void.
+ * @throws Error if the login request fails with a status other than 200.
+ */
+  async login(userName: string, password: string): Promise<void> {
+    const data = {
+      username: userName,
+      password: password,
     };
+    const res = await this.makeRequest("POST", "/auth/login", data);
+    if (res.status >= 300) {
+      throw new Error(res.statusText);
+    }
+    this.headers.Authorization = `Bearer ${res.data.access_token}` || "";
   }
 
-  private async makeRequest(method: string, endpoint: string, data?: any) {
+/**
+ * Asynchronous method to make a request to a specified endpoint with optional data.
+ * 
+ * @param method The HTTP method for the request.
+ * @param endpoint The endpoint to send the request to.
+ * @param data Optional data to be sent with the request.
+ * @returns A Promise that resolves with the AxiosResponse containing the response data.
+ * @throws Error if the request fails.
+ */
+  private async makeRequest(
+    method: string,
+    endpoint: string,
+    data?: any
+  ): Promise<AxiosResponse<any>> {
     try {
       const response = await axios({
         method,
@@ -35,29 +62,24 @@ class AIClient {
       throw err;
     }
   }
-
-  async pingPong() {
+  async pingPong(): Promise<AxiosResponse<any>> {
     return this.makeRequest("GET", "/ping");
   }
 
-  async listTasks() {
+  async listTasks(): Promise<AxiosResponse<any>> {
     return this.makeRequest("GET", "/products/tasks");
   }
 
-  async runTask(request: IRequest) {
+  async runTask(request: IRequest): Promise<AxiosResponse<any>> {
     return this.makeRequest("POST", "/products/tasks/query", request);
   }
 
-  async deleteTask(request: IDelete) {
+  async deleteTask(request: IDelete): Promise<AxiosResponse<any>> {
     const { idTask } = request;
     return this.makeRequest("DELETE", `/products/tasks/${idTask}`);
   }
 
-  async createTask(request: IInsert) {
+  async createTask(request: IInsert): Promise<AxiosResponse<any>> {
     return this.makeRequest("PUT", "/products/tasks/", request);
   }
 }
-
-module.exports = {
-  AIClient,
-};
