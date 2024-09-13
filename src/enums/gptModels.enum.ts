@@ -10,5 +10,5 @@ export enum GPTModelsEnum {
   OAIGPT41106Preview = 'gpt-4-1106-preview',
   Claude3Opus = 'claude-3-opus-20240229',
   Claude3Sonet = 'claude-3-sonnet-20240229',
-  Claude3Haiku = 'claude-3-haiku-20240307'
+  Claude3Haiku = 'claude-3-haiku-20240307',
 }

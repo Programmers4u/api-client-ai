@@ -30,11 +30,13 @@ The `AIClient` class provides an interface to interact with the API at `https://
 ## Enums
 
 ### `AudioModelsEnum`
+
 - **OAIWHISPER1**: `whisper-1`
 - **OAITTS1**: `tts-1`
 - **OAITTS1HD**: `tts-1-hd`
 
 ### `GPTModelsEnum`
+
 - **OAIGPT35Turbo**: `gpt-3.5-turbo`
 - **OAIGPT35Turbo1106**: `gpt-3.5-turbo-1106`
 - **OAIGPT35Turbo16k**: `gpt-3.5-turbo-16k`
@@ -51,52 +53,62 @@ The `AIClient` class provides an interface to interact with the API at `https://
 ## Interfaces
 
 ### `IDelete`
+
 ```typescript
 interface IDelete {
-    idTask: string;
+  idTask: string;
 }
 ```
 
 ### `IInsert`
+
 ```typescript
 interface IInsert {
-    name: string;
-    context: string;
-    model: string;
-    instruction: string;
+  name: string;
+  context: string;
+  model: string;
+  instruction: string;
 }
 ```
 
 ### `IRequest`
+
 ```typescript
 interface IRequest {
-    ask: string;
-    context: string;
-    idTask: string;
+  ask: string;
+  context: string;
+  idTask: string;
 }
 ```
 
 ## Methods
 
 ### `login(userName: string, password: string): Promise<void>`
+
 Logs in the user with the provided `username` and `password`.
 
 ### `makeRequest(method: string, endpoint: string, data?: any): Promise<AxiosResponse<any>>`
+
 Makes an HTTP request to the specified `endpoint` using the given HTTP `method` and optional `data`.
 
 ### `pingPong(): Promise<AxiosResponse<any>>`
+
 Pings the API to check if the connection is alive.
 
 ### `listTasks(): Promise<AxiosResponse<any>>`
+
 Lists all tasks available for the user.
 
 ### `runTask(request: IRequest): Promise<AxiosResponse<any>>`
+
 Runs a specific task based on the given `request`.
 
 ### `deleteTask(request: IDelete): Promise<AxiosResponse<any>>`
+
 Deletes a task specified by the `request`.
 
 ### `createTask(request: IInsert): Promise<AxiosResponse<any>>`
+
 Creates a new task with the provided `request`.
 
 ## Error Handling Mechanism
@@ -116,38 +128,40 @@ yarn test
 ```
 
 ```typescript
-import { IRequest } from "../interfaces/request.interface";
-import AIClient from "../index";
+import { IRequest } from '../interfaces/request.interface';
+import AIClient from '../index';
 
-const userName = "XXX@XXX";
-const password = "XXXXXXX";
+const userName = 'XXX@XXX';
+const password = 'XXXXXXX';
 
 const startTest = async () => {
-    const client = new AIClient();
-    await client.login(userName, password);
-    const listOfTasks = await client.listTasks();
-    console.log(listOfTasks);
+  const client = new AIClient();
+  await client.login(userName, password);
+  const listOfTasks = await client.listTasks();
+  console.log(listOfTasks);
 
-    const testText = "Your task description here.";
-    const taskRequest: IRequest = {
-        idTask: "52468971-a06e-413d-9b3a-212b53aad693",
-        ask: testText,
-        context: " ",
-    };
+  const testText = 'Your task description here.';
+  const taskRequest: IRequest = {
+    idTask: '52468971-a06e-413d-9b3a-212b53aad693',
+    ask: testText,
+    context: ' ',
+  };
 
-    const taskRun = await client.runTask(taskRequest);
-    console.log(taskRun);
+  const taskRun = await client.runTask(taskRequest);
+  console.log(taskRun);
 };
 
 startTest();
 ```
 
 # CURL Usage Documentation
+
 This documentation provides a comprehensive guide to using the `AIClient` class and making API requests using `curl`.
 
 ## Authentication
 
 ### Login
+
 ```sh
 curl -X POST https://api.programmers4u.com/auth/login \
      -H "Content-Type: application/json" \
@@ -157,12 +171,14 @@ curl -X POST https://api.programmers4u.com/auth/login \
 ## Tasks
 
 ### List Tasks
+
 ```sh
 curl -X GET https://api.programmers4u.com/products/tasks \
      -H "Authorization: Bearer your_access_token"
 ```
 
 ### Run Task
+
 ```sh
 curl -X POST https://api.programmers4u.com/products/tasks/query \
      -H "Content-Type: application/json" \
@@ -175,6 +191,7 @@ curl -X POST https://api.programmers4u.com/products/tasks/query \
 ```
 
 ### Create Task
+
 ```sh
 curl -X PUT https://api.programmers4u.com/products/tasks \
      -H "Content-Type: application/json" \
@@ -188,12 +205,14 @@ curl -X PUT https://api.programmers4u.com/products/tasks \
 ```
 
 ### Delete Task
+
 ```sh
 curl -X DELETE https://api.programmers4u.com/products/tasks/52468971-a06e-413d-9b3a-212b53aad693 \
      -H "Authorization: Bearer your_access_token"
 ```
 
 ### Ping API
+
 ```sh
 curl -X GET https://api.programmers4u.com/ping
 ```

@@ -1,9 +1,12 @@
 {
   "name": "p4u-client-ai",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "author": "p4u",
   "license": "Apache-2.0",
   "homepage": "https://app.apihub4ai.com",
@@ -21,20 +24,26 @@
     "node": ">=20.14.0"
   },
   "repository": {
+    "type": "git",
     "url": "git+https://github.com/Programmers4u/api-client-ai.git"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn src/index.ts",
     "build": "tsc",
-    "test": "tsc && node dist/test/index.js"
+    "test": "tsc && node dist/test/index.js",
+    "format": "prettier --write .",
+    "check-format": "prettier --check .",
+    "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm"
   },
   "dependencies": {
     "axios": ">=1.7.2"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.16.2",
     "@tsconfig/node20": "^20.1.4",
     "@types/axios": "^0.14.0",
     "@types/node": "^20.14.10",
+    "prettier": "^3.3.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3"
   }

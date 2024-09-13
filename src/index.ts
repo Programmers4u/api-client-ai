@@ -1,7 +1,7 @@
-import axios, { AxiosResponse } from "axios";
-import { IRequest } from "./interfaces/request.interface";
-import { IInsert } from "./interfaces/insert.interface";
-import { IDelete } from "./interfaces/delete.interface";
+import axios, { AxiosResponse } from 'axios';
+import { IRequest } from './interfaces/request.interface';
+import { IInsert } from './interfaces/insert.interface';
+import { IDelete } from './interfaces/delete.interface';
 
 /**
  * AIClient class for interacting with the API at https://app.apihub4ai.com/doc
@@ -9,10 +9,10 @@ import { IDelete } from "./interfaces/delete.interface";
  */
 export default class AIClient {
   private headers = {
-    "content-type": "application/json",
-    Authorization: "",
+    'content-type': 'application/json',
+    Authorization: '',
   };
-  private apiUrl = "https://api.programmers4u.com";
+  private apiUrl = 'https://api.programmers4u.com';
 
   constructor() {}
 
@@ -29,11 +29,11 @@ export default class AIClient {
       username: userName,
       password: password,
     };
-    const res = await this.makeRequest("POST", "/auth/login", data);
+    const res = await this.makeRequest('POST', '/auth/login', data);
     if (res.status >= 300) {
       throw new Error(res.statusText);
     }
-    this.headers.Authorization = `Bearer ${res.data.access_token}` || "";
+    this.headers.Authorization = `Bearer ${res.data.access_token}` || '';
   }
 
   /**
@@ -48,7 +48,7 @@ export default class AIClient {
   private async makeRequest(
     method: string,
     endpoint: string,
-    data?: any
+    data?: any,
   ): Promise<AxiosResponse<any>> {
     try {
       const response = await axios({
@@ -63,23 +63,23 @@ export default class AIClient {
     }
   }
   async pingPong(): Promise<AxiosResponse<any>> {
-    return this.makeRequest("GET", "/ping");
+    return this.makeRequest('GET', '/ping');
   }
 
   async listTasks(): Promise<AxiosResponse<any>> {
-    return this.makeRequest("GET", "/products/tasks");
+    return this.makeRequest('GET', '/products/tasks');
   }
 
   async runTask(request: IRequest): Promise<AxiosResponse<any>> {
-    return this.makeRequest("POST", "/products/tasks/query", request);
+    return this.makeRequest('POST', '/products/tasks/query', request);
   }
 
   async deleteTask(request: IDelete): Promise<AxiosResponse<any>> {
     const { idTask } = request;
-    return this.makeRequest("DELETE", `/products/tasks/${idTask}`);
+    return this.makeRequest('DELETE', `/products/tasks/${idTask}`);
   }
 
   async createTask(request: IInsert): Promise<AxiosResponse<any>> {
-    return this.makeRequest("PUT", "/products/tasks/", request);
+    return this.makeRequest('PUT', '/products/tasks/', request);
   }
 }

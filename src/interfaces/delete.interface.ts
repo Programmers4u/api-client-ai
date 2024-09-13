@@ -1,3 +1,3 @@
 export interface IDelete {
-    idTask: string;
+  idTask: string;
 }

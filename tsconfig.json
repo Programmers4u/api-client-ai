@@ -3,10 +3,12 @@
   "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "src",
     "module": "commonjs",
-    "moduleResolution": "node",    
+    "moduleResolution": "node",
     "target": "ES2015",
     "declaration": true,
+    "declarationMap": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -22,6 +24,10 @@
     "noFallthroughCasesInSwitch": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": false,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
     "paths": {
       "*": ["node_modules/*"]
     }
