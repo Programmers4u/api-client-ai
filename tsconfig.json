@@ -1,8 +1,11 @@
 {
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "commonjs",
+    "moduleResolution": "node",    
+    "target": "ES2015",
     "declaration": true,
     "removeComments": false,
     "emitDecoratorMetadata": true,
@@ -15,9 +18,12 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  }
 }
