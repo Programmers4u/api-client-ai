@@ -8,7 +8,7 @@ import { IDelete } from "./interfaces/delete.interface";
  * Manages user authentication, task operations requests.
  */
 export default class AIClient {
-  private headers: { "content-type": string; Authorization: string } = {
+  private headers = {
     "content-type": "application/json",
     Authorization: "",
   };
@@ -17,13 +17,13 @@ export default class AIClient {
   constructor() {}
 
   /**
- * Asynchronous method to log in with the provided username and password.
- * 
- * @param userName The username of the user.
- * @param password The password of the user.
- * @returns A Promise that resolves with void.
- * @throws Error if the login request fails with a status other than 200.
- */
+   * Asynchronous method to log in with the provided username and password.
+   *
+   * @param userName The username of the user.
+   * @param password The password of the user.
+   * @returns A Promise that resolves with void.
+   * @throws Error if the login request fails with a status other than 200.
+   */
   async login(userName: string, password: string): Promise<void> {
     const data = {
       username: userName,
@@ -36,15 +36,15 @@ export default class AIClient {
     this.headers.Authorization = `Bearer ${res.data.access_token}` || "";
   }
 
-/**
- * Asynchronous method to make a request to a specified endpoint with optional data.
- * 
- * @param method The HTTP method for the request.
- * @param endpoint The endpoint to send the request to.
- * @param data Optional data to be sent with the request.
- * @returns A Promise that resolves with the AxiosResponse containing the response data.
- * @throws Error if the request fails.
- */
+  /**
+   * Asynchronous method to make a request to a specified endpoint with optional data.
+   *
+   * @param method The HTTP method for the request.
+   * @param endpoint The endpoint to send the request to.
+   * @param data Optional data to be sent with the request.
+   * @returns A Promise that resolves with the AxiosResponse containing the response data.
+   * @throws Error if the request fails.
+   */
   private async makeRequest(
     method: string,
     endpoint: string,
