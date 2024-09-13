@@ -2,7 +2,6 @@ import axios, { AxiosResponse } from "axios";
 import { IRequest } from "./interfaces/request.interface";
 import { IInsert } from "./interfaces/insert.interface";
 import { IDelete } from "./interfaces/delete.interface";
-import { IHeaders } from "./interfaces/headers.interface";
 
 /**
  * AIClient class for interacting with the API at https://app.apihub4ai.com/doc

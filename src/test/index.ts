@@ -2,7 +2,7 @@ import { IRequest } from "../interfaces/request.interface";
 import AIClient from "../index";
 
 const userName = "XXX@XXX";
-const password = "XXXXXXX";
+const password = "XXX";
 
 const startTest = async () => {
   const client = new AIClient();
