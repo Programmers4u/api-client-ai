@@ -1,9 +1,9 @@
 {
   "name": "p4u-client-ai",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "main": "dist/index.js",
   "type": "module",
-  "types": "dist/ndex.d.ts",
+  "types": "dist/index.d.ts",
   "author": "p4u",
   "license": "Apache-2.0",
   "homepage": "https://app.apihub4ai.com",
