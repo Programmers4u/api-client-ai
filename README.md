@@ -1,8 +1,8 @@
 # P4U Client AI Node API Package
 
-[Task automation system home](https://app.apihub4ai.com)
+[Task automation system home](https://www.valar-ai.com)
 
-[Documentation: API](https://app.apihub4ai.com/doc)
+[Documentation: API](https://www.valar-ai.com/doc)
 
 A tool client for communicating with an AI models hub.
 Thanks to the tasks you define in the administration panel, you can write your own backend for any application without knowing how to program.
@@ -21,7 +21,7 @@ npm install --save p4u-client-ai
 yarn add p4u-client-ai
 ```
 
-The AIClient class is designed for interacting with the API at [task automation system](https://app.apihub4ai.com/doc). It manages user authentication, task operations requests.
+The AIClient class is designed for interacting with the API at [task automation system](https://www.valar-ai.com/doc). It manages user authentication, task operations requests.
 
 ## Overview
 
@@ -37,18 +37,22 @@ The `AIClient` class provides an interface to interact with the API at `https://
 
 ### `GPTModelsEnum`
 
-- **OAIGPT35Turbo**: `gpt-3.5-turbo`
-- **OAIGPT35Turbo1106**: `gpt-3.5-turbo-1106`
-- **OAIGPT35Turbo16k**: `gpt-3.5-turbo-16k`
-- **OAIGPT35TurboInstruct**: `gpt-3.5-turbo-instruct`
-- **OAIGPT4**: `gpt-4`
-- **OAIGPT4o**: `gpt-4o`
-- **OAIGPT432k**: `gpt-4-32k`
-- **OAIGPT4VisionPreview**: `gpt-4-vision-preview`
-- **OAIGPT41106Preview**: `gpt-4-1106-preview`
-- **Claude3Opus**: `claude-3-opus-20240229`
-- **Claude3Sonet**: `claude-3-sonnet-20240229`
-- **Claude3Haiku**: `claude-3-haiku-20240307`
+- **OAIGPT4**: gpt-4
+- **OAIGPT4o**: gpt-4o
+- **OAIGPT4VisionPreview**: gpt-4-vision-preview
+- **OAIGPT41106Preview**: gpt-4-1106-preview
+- **Claude3Opus**: claude-3-opus-20240229
+- **Claude3Sonet**: claude-3-sonnet-20240229
+- **Claude3Haiku**: claude-3-haiku-20240307
+- **OAIGPT41**: gpt-4.1-2025-04-14
+- **OAIGPT41mini**: gpt-4.1-mini-2025-04-14
+- **OAIGPT41nano**: gpt-4.1-nano-2025-04-14
+- **OAIGPT4omini**: gpt-4o-mini
+- **OAIGPTo1Preview**: o1-preview
+- **OAIGPTo1Mini**: o1-mini
+- **OAIGPTo3Mini**: o3-mini-2025-01-31
+- **Claude35Sonet**: claude-3-5-sonnet-20241022
+- **Claude35Haiku**: claude-3-5-haiku-20241022
 
 ## Interfaces
 

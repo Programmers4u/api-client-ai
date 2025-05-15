@@ -13,6 +13,7 @@ export default class AIClient {
     Authorization: '',
   };
   private apiUrl = 'https://api.programmers4u.com';
+  private debugUrl: string | undefined;
 
   constructor() {}
 
@@ -53,7 +54,7 @@ export default class AIClient {
     try {
       const response = await axios({
         method,
-        url: `${this.apiUrl}${endpoint}`,
+        url: `${this.debugUrl ? this.debugUrl : this.apiUrl}${endpoint}`,
         headers: this.headers,
         data: data ? JSON.stringify(data) : undefined,
       });
@@ -81,5 +82,9 @@ export default class AIClient {
 
   async createTask(request: IInsert): Promise<AxiosResponse<any>> {
     return this.makeRequest('PUT', '/products/tasks/', request);
+  }
+
+  setLocalUrl(url: string): void {
+    this.debugUrl = url;
   }
 }
