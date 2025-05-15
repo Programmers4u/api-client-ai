@@ -1,6 +1,6 @@
 {
   "name": "p4u-client-ai",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "main": "dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
@@ -37,7 +37,7 @@
     "check-exports": "attw --pack . --ignore-rules=cjs-resolves-to-esm"
   },
   "dependencies": {
-    "axios": ">=1.7.2"
+    "axios": ">=1.8.2"
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.16.2",
