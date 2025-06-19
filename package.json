@@ -13,7 +13,9 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "!dist/test",
+    "!dist/**/*.map"
   ],
   "author": "p4u",
   "license": "Apache-2.0",
