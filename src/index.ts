@@ -1,7 +1,48 @@
 import axios, { AxiosResponse } from 'axios';
-import { IRequest } from './interfaces/request.interface';
-import { IInsert } from './interfaces/insert.interface';
-import { IDelete } from './interfaces/delete.interface';
+
+// Interfaces
+export interface IRequest {
+  ask: string;
+  context: string;
+  idTask: string;
+}
+
+export interface IInsert {
+  name: string;
+  context: string;
+  model: string;
+  instruction: string;
+}
+
+export interface IDelete {
+  idTask: string;
+}
+
+// Enums
+export enum GPTModelsEnum {
+  OAIGPT4 = 'gpt-4',
+  OAIGPT4o = 'gpt-4o',
+  OAIGPT4VisionPreview = 'gpt-4-vision-preview',
+  OAIGPT41106Preview = 'gpt-4-1106-preview',
+  Claude3Opus = 'claude-3-opus-20240229',
+  Claude3Sonet = 'claude-3-sonnet-20240229',
+  Claude3Haiku = 'claude-3-haiku-20240307',
+  OAIGPT41 = 'gpt-4.1-2025-04-14',
+  OAIGPT41mini = 'gpt-4.1-mini-2025-04-14',
+  OAIGPT41nano = 'gpt-4.1-nano-2025-04-14',
+  OAIGPT4omini = 'gpt-4o-mini',
+  OAIGPTo1Preview = 'o1-preview',
+  OAIGPTo1Mini = 'o1-mini',
+  OAIGPTo3Mini = 'o3-mini-2025-01-31',
+  Claude35Sonet = 'claude-3-5-sonnet-20241022',
+  Claude35Haiku = 'claude-3-5-haiku-20241022',
+}
+
+export enum AudioModelsEnum {
+  OAIWHISPER1 = 'whisper-1',
+  OAITTS1 = 'tts-1',
+  OAITTS1HD = 'tts-1-hd',
+}
 
 /**
  * AIClient class for interacting with the API at https://app.apihub4ai.com/doc
@@ -26,14 +67,9 @@ export default class AIClient {
    * @throws Error if the login request fails with a status other than 200.
    */
   async login(userName: string, password: string): Promise<void> {
-    const data = {
-      username: userName,
-      password: password,
-    };
+    const data = { username: userName, password: password };
     const res = await this.makeRequest('POST', '/auth/login', data);
-    if (res.status >= 300) {
-      throw new Error(res.statusText);
-    }
+    if (res.status >= 300) throw new Error(res.statusText);
     this.headers.Authorization = `Bearer ${res.data.access_token}` || '';
   }
 
@@ -46,23 +82,19 @@ export default class AIClient {
    * @returns A Promise that resolves with the AxiosResponse containing the response data.
    * @throws Error if the request fails.
    */
-  private async makeRequest(
-    method: string,
-    endpoint: string,
-    data?: any,
-  ): Promise<AxiosResponse<any>> {
+  private async makeRequest(method: string, endpoint: string, data?: any): Promise<AxiosResponse<any>> {
     try {
-      const response = await axios({
+      return await axios({
         method,
         url: `${this.debugUrl ? this.debugUrl : this.apiUrl}${endpoint}`,
         headers: this.headers,
         data: data ? JSON.stringify(data) : undefined,
       });
-      return response;
     } catch (err) {
       throw err;
     }
   }
+
   async pingPong(): Promise<AxiosResponse<any>> {
     return this.makeRequest('GET', '/ping');
   }

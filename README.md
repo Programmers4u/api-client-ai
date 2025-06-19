@@ -1,222 +1,85 @@
-# P4U Client AI Node API Package
+# P4U Client AI
 
-[Task automation system home](https://www.valar-ai.com)
-
-[Documentation: API](https://www.valar-ai.com/doc)
-
-A tool client for communicating with an AI models hub.
-Thanks to the tasks you define in the administration panel, you can write your own backend for any application without knowing how to program.
-
-You can access multiple AI models from different vendors in one API. The tool allows for easy and quick implementation of functions that are managed by artificial intelligence models, which we program by describing the task to be performed. The API interface allows you to automate and combine tasks. Thanks to this tool, you can easily create an AI agent that will answer your phone, answer e-mails, chat, write articles or posts on social media.
-
-This library provides convenient access to the REST API from TypeScript or JavaScript.
-
-# AIClient User Documentation
+Empower Your Apps with AI: Access Multiple Models, Automate Tasks, Create AI Agents Easily
 
 ## Installation
 
-```sh
-npm install --save p4u-client-ai
-# or
+```bash
 yarn add p4u-client-ai
+# or
+npm install p4u-client-ai
 ```
 
-The AIClient class is designed for interacting with the API at [task automation system](https://www.valar-ai.com/doc). It manages user authentication, task operations requests.
+## Usage
 
-## Overview
-
-The `AIClient` class provides an interface to interact with the API at `https://api.programmers4u.com`. This client supports user authentication, task operations such as creating, listing, running, and deleting tasks. It also provides some utility methods for basic API interactions.
-
-## Enums
-
-### `AudioModelsEnum`
-
-- **OAIWHISPER1**: `whisper-1`
-- **OAITTS1**: `tts-1`
-- **OAITTS1HD**: `tts-1-hd`
-
-### `GPTModelsEnum`
-
-- **OAIGPT4**: gpt-4
-- **OAIGPT4o**: gpt-4o
-- **OAIGPT4VisionPreview**: gpt-4-vision-preview
-- **OAIGPT41106Preview**: gpt-4-1106-preview
-- **Claude3Opus**: claude-3-opus-20240229
-- **Claude3Sonet**: claude-3-sonnet-20240229
-- **Claude3Haiku**: claude-3-haiku-20240307
-- **OAIGPT41**: gpt-4.1-2025-04-14
-- **OAIGPT41mini**: gpt-4.1-mini-2025-04-14
-- **OAIGPT41nano**: gpt-4.1-nano-2025-04-14
-- **OAIGPT4omini**: gpt-4o-mini
-- **OAIGPTo1Preview**: o1-preview
-- **OAIGPTo1Mini**: o1-mini
-- **OAIGPTo3Mini**: o3-mini-2025-01-31
-- **Claude35Sonet**: claude-3-5-sonnet-20241022
-- **Claude35Haiku**: claude-3-5-haiku-20241022
-
-## Interfaces
-
-### `IDelete`
+### Basic Usage
 
 ```typescript
-interface IDelete {
-  idTask: string;
-}
-```
+import AIClient, { GPTModelsEnum, IRequest, IInsert } from 'p4u-client-ai';
 
-### `IInsert`
+const client = new AIClient();
 
-```typescript
-interface IInsert {
-  name: string;
-  context: string;
-  model: string;
-  instruction: string;
-}
-```
+// Login
+await client.login('your-username', 'your-password');
 
-### `IRequest`
+// List available tasks
+const tasks = await client.listTasks();
 
-```typescript
-interface IRequest {
-  ask: string;
-  context: string;
-  idTask: string;
-}
-```
-
-## Methods
-
-### `login(userName: string, password: string): Promise<void>`
-
-Logs in the user with the provided `username` and `password`.
-
-### `makeRequest(method: string, endpoint: string, data?: any): Promise<AxiosResponse<any>>`
-
-Makes an HTTP request to the specified `endpoint` using the given HTTP `method` and optional `data`.
-
-### `pingPong(): Promise<AxiosResponse<any>>`
-
-Pings the API to check if the connection is alive.
-
-### `listTasks(): Promise<AxiosResponse<any>>`
-
-Lists all tasks available for the user.
-
-### `runTask(request: IRequest): Promise<AxiosResponse<any>>`
-
-Runs a specific task based on the given `request`.
-
-### `deleteTask(request: IDelete): Promise<AxiosResponse<any>>`
-
-Deletes a task specified by the `request`.
-
-### `createTask(request: IInsert): Promise<AxiosResponse<any>>`
-
-Creates a new task with the provided `request`.
-
-## Error Handling Mechanism
-
-The code uses `try-catch` blocks to handle errors that may occur during API requests. If an error occurs during the asynchronous requests, the `catch` block will handle the error by throwing it to be handled by the calling code.
-
-Overall, this code provides a structured approach to interact with AI-related API endpoints, handle errors, and manage different types of AI models and tasks.
-
-## Usage Example
-
-Start test
-
-```sh
-npm run test
-or
-yarn test
-```
-
-```typescript
-import { IRequest } from '../interfaces/request.interface';
-import AIClient from '../index';
-
-const userName = 'XXX@XXX';
-const password = 'XXXXXXX';
-
-const startTest = async () => {
-  const client = new AIClient();
-  await client.login(userName, password);
-  const listOfTasks = await client.listTasks();
-  console.log(listOfTasks);
-
-  const testText = 'Your task description here.';
-  const taskRequest: IRequest = {
-    idTask: '52468971-a06e-413d-9b3a-212b53aad693',
-    ask: testText,
-    context: ' ',
-  };
-
-  const taskRun = await client.runTask(taskRequest);
-  console.log(taskRun);
+// Run a task
+const request: IRequest = {
+  ask: 'What is the weather today?',
+  context: 'Weather inquiry',
+  idTask: 'task-id'
 };
+const result = await client.runTask(request);
 
-startTest();
+// Create a new task
+const newTask: IInsert = {
+  name: 'Weather Assistant',
+  context: 'Provides weather information',
+  model: GPTModelsEnum.OAIGPT4o,
+  instruction: 'You are a helpful weather assistant'
+};
+await client.createTask(newTask);
 ```
 
-# CURL Usage Documentation
+### Available Models
 
-This documentation provides a comprehensive guide to using the `AIClient` class and making API requests using `curl`.
+#### GPT Models
+- `GPTModelsEnum.OAIGPT4` - GPT-4
+- `GPTModelsEnum.OAIGPT4o` - GPT-4o
+- `GPTModelsEnum.OAIGPT4omini` - GPT-4o Mini
+- `GPTModelsEnum.OAIGPTo1Preview` - o1-preview
+- `GPTModelsEnum.Claude35Sonet` - Claude 3.5 Sonnet
+- And many more...
 
-## Authentication
+#### Audio Models
+- `AudioModelsEnum.OAIWHISPER1` - Whisper-1
+- `AudioModelsEnum.OAITTS1` - TTS-1
+- `AudioModelsEnum.OAITTS1HD` - TTS-1 HD
 
-### Login
+### API Methods
 
-```sh
-curl -X POST https://api.programmers4u.com/auth/login \
-     -H "Content-Type: application/json" \
-     -d '{"username": "your_username", "password": "your_password"}'
-```
+- `login(userName: string, password: string)` - Authenticate with the API
+- `pingPong()` - Test API connectivity
+- `listTasks()` - Get all available tasks
+- `runTask(request: IRequest)` - Execute a task
+- `createTask(request: IInsert)` - Create a new task
+- `deleteTask(request: IDelete)` - Delete a task
+- `setLocalUrl(url: string)` - Set custom API URL for development
 
-## Tasks
+### TypeScript Support
 
-### List Tasks
+This package includes full TypeScript definitions with interfaces:
 
-```sh
-curl -X GET https://api.programmers4u.com/products/tasks \
-     -H "Authorization: Bearer your_access_token"
-```
+- `IRequest` - For task execution requests
+- `IInsert` - For creating new tasks
+- `IDelete` - For deleting tasks
 
-### Run Task
+## License
 
-```sh
-curl -X POST https://api.programmers4u.com/products/tasks/query \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer your_access_token" \
-     -d '{
-           "idTask": "52468971-a06e-413d-9b3a-212b53aad693",
-           "ask": "Your task description here.",
-           "context": " "
-         }'
-```
+Apache-2.0
 
-### Create Task
+## Homepage
 
-```sh
-curl -X PUT https://api.programmers4u.com/products/tasks \
-     -H "Content-Type: application/json" \
-     -H "Authorization: Bearer your_access_token" \
-     -d '{
-           "name": "Task Name",
-           "context": "Task Context",
-           "model": "Model Name",
-           "instruction": "Task Instructions"
-         }'
-```
-
-### Delete Task
-
-```sh
-curl -X DELETE https://api.programmers4u.com/products/tasks/52468971-a06e-413d-9b3a-212b53aad693 \
-     -H "Authorization: Bearer your_access_token"
-```
-
-### Ping API
-
-```sh
-curl -X GET https://api.programmers4u.com/ping
-```
+[https://www.valar-ai.com](https://www.valar-ai.com)
