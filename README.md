@@ -109,6 +109,68 @@ import AIClient, {
 - `deleteTask(request: IDelete)` - Delete a task
 - `setLocalUrl(url: string)` - Set custom API URL for development
 
+#### Agents
+- `listAgents()` - Get all agents
+- `getAgent(id: string)` - Get one agent
+- `createAgent(request: IInsertAgent)` - Create agent
+- `updateAgent(request: IUpdateAgent)` - Update agent
+- `deleteAgent(id: string)` - Delete agent
+- `queryAgent(body: IAgentQueryRequest)` - Run a query through an agent (stream or text response per backend)
+
+Usage:
+```ts
+import AIClient, { GPTModelsEnum } from 'p4u-client-ai';
+
+const client = new AIClient();
+await client.login('user','pass');
+
+const created = await client.createAgent({
+  name: 'My Agent',
+  model: GPTModelsEnum.OAIGPT4o,
+  instruction: 'You are helpful.'
+});
+
+const agents = await client.listAgents();
+const answer = await client.queryAgent({ idAgent: created.data.id, ask: 'Hello!' });
+```
+
+#### RAG (knowledge base)
+- `getAllAgentRag(query?: Record<string, any>)` - List RAG entries
+- `getAgentRag(id: string)` - Get RAG entry
+- `createAgentRag(data: IAgentRag)` - Create RAG entry (multipart form)
+- `deleteAgentRag(id: string)` - Delete RAG entry
+- `addKnowledge(data: IAddKnowledgeRequest)` - Add knowledge content
+- `addKnowledgeBatch(data: IAddKnowledgeBatchRequest)` - Add knowledge in batch
+- `addKnowledgeFromFile(agentRagId: string, file: Blob, metadata?: Record<string, any>)` - Upload file knowledge
+- `searchKnowledge(data: ISearchKnowledgeRequest)` - Semantic search
+- `getKnowledgeById(id: string)` - Get one knowledge item
+- `getKnowledgeStatistics(agentRagId: string)` - Stats
+- `getKnowledgeByAgentRagId(agentRagId: string)` - List knowledge items for RAG
+- `excludeKnowledge(data: IExcludeKnowledgeRequest)` - Remove specific chunks
+- `searchKnowledgeByMetadata(data: ISearchKnowledgeByMetadataRequest)` - Filter by metadata
+
+Usage:
+```ts
+import AIClient from 'p4u-client-ai';
+
+const client = new AIClient();
+await client.login('user','pass');
+
+// Create RAG entry without file
+const rag = await client.createAgentRag({
+  name: 'Docs KB',
+  agentId: 'agent-id',
+  description: 'Product docs'
+});
+
+// Upload a file to knowledge base
+const file = new Blob([new Uint8Array([1,2,3])], { type: 'application/pdf' });
+await client.addKnowledgeFromFile(rag.data.id, file, { section: 'intro' });
+
+// Search knowledge
+const search = await client.searchKnowledge({ agentRagId: rag.data.id, query: 'pricing', limit: 5 });
+```
+
 ### TypeScript Support
 
 This package includes full TypeScript definitions with interfaces:
