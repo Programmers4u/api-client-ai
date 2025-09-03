@@ -1,51 +1,13 @@
 import axios, { AxiosResponse } from 'axios';
-
-// Interfaces
-export interface IRequest {
-  ask: string;
-  context: string;
-  idTask: string;
-}
-
-export interface IInsert {
-  name: string;
-  context: string;
-  model: string;
-  instruction: string;
-}
-
-export interface IDelete {
-  idTask: string;
-}
-
-// Enums
-export enum GPTModelsEnum {
-  OAIGPT4 = 'gpt-4',
-  OAIGPT4o = 'gpt-4o',
-  OAIGPT4VisionPreview = 'gpt-4-vision-preview',
-  OAIGPT41106Preview = 'gpt-4-1106-preview',
-  Claude3Opus = 'claude-3-opus-20240229',
-  Claude3Sonet = 'claude-3-sonnet-20240229',
-  Claude3Haiku = 'claude-3-haiku-20240307',
-  OAIGPT41 = 'gpt-4.1-2025-04-14',
-  OAIGPT41mini = 'gpt-4.1-mini-2025-04-14',
-  OAIGPT41nano = 'gpt-4.1-nano-2025-04-14',
-  OAIGPT4omini = 'gpt-4o-mini',
-  OAIGPTo1Preview = 'o1-preview',
-  OAIGPTo1Mini = 'o1-mini',
-  OAIGPTo3Mini = 'o3-mini-2025-01-31',
-  Claude35Sonet = 'claude-3-5-sonnet-20241022',
-  Claude35Haiku = 'claude-3-5-haiku-20241022',
-}
-
-export enum AudioModelsEnum {
-  OAIWHISPER1 = 'whisper-1',
-  OAITTS1 = 'tts-1',
-  OAITTS1HD = 'tts-1-hd',
-}
+import type { IRequest, IInsert, IDelete } from './interfaces/index.js';
+export type { IRequest, IInsert, IDelete } from './interfaces/index.js';
+export { GPTModelsEnum } from './enums/gptModels.enum.js';
+export { AudioModelsEnum } from './enums/audioModels.enum.js';
+export { ImageModelsEnum } from './enums/imageModels.enum.js';
+export { VideoModelsEnum } from './enums/videoModels.enum.js';
 
 /**
- * AIClient class for interacting with the API at https://app.apihub4ai.com/doc
+ * AIClient class for interacting with the API at https://www.valar-ai.com/doc
  * Manages user authentication, task operations requests.
  */
 export default class AIClient {

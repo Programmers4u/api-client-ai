@@ -43,20 +43,61 @@ const newTask: IInsert = {
 await client.createTask(newTask);
 ```
 
+### Types and enums
+
+You can import all types and enums directly from the package root:
+
+```ts
+import AIClient, {
+  IRequest,
+  IInsert,
+  IDelete,
+  GPTModelsEnum,
+  AudioModelsEnum,
+  ImageModelsEnum,
+  VideoModelsEnum,
+} from 'p4u-client-ai';
+```
+
 ### Available Models
 
 #### GPT Models
-- `GPTModelsEnum.OAIGPT4` - GPT-4
-- `GPTModelsEnum.OAIGPT4o` - GPT-4o
+- `GPTModelsEnum.OAIGPT5` - GPT-5
+- `GPTModelsEnum.OAIGPT5mini` - GPT-5 mini
+- `GPTModelsEnum.OAIGPT5nano` - GPT-5 nano
+- `GPTModelsEnum.OAIGPT41` - GPT-4.1 (2025-04-14)
+- `GPTModelsEnum.OAIGPT41mini` - GPT-4.1 mini (2025-04-14)
+- `GPTModelsEnum.OAIGPT41nano` - GPT-4.1 nano (2025-04-14)
+- `GPTModelsEnum.OAIGPT4o` - GPT-4o (2024-11-20)
 - `GPTModelsEnum.OAIGPT4omini` - GPT-4o Mini
 - `GPTModelsEnum.OAIGPTo1Preview` - o1-preview
-- `GPTModelsEnum.Claude35Sonet` - Claude 3.5 Sonnet
-- And many more...
+- `GPTModelsEnum.OAIGPTo1Mini` - o1-mini
+- `GPTModelsEnum.OAIGPTo3Mini` - o3-mini (2025-01-31)
+- `GPTModelsEnum.Claude4Sonet` - Claude Sonnet 4 (2025-05-14)
+- `GPTModelsEnum.Claude3Haiku` - Claude 3 Haiku (2024-03-07)
+- `GPTModelsEnum.Claude35Haiku` - Claude 3.5 Haiku (2024-10-22)
 
 #### Audio Models
 - `AudioModelsEnum.OAIWHISPER1` - Whisper-1
 - `AudioModelsEnum.OAITTS1` - TTS-1
 - `AudioModelsEnum.OAITTS1HD` - TTS-1 HD
+- `AudioModelsEnum.OAITTS4oMINI` - GPT-4o Mini TTS
+- `AudioModelsEnum.OAI4oMiniTranscribe` - GPT-4o Mini Transcribe
+
+#### Image Models
+- `ImageModelsEnum.SDV3` - Stable Diffusion v3
+- `ImageModelsEnum.SDV3_CORE` - Stable Diffusion v3 Core
+- `ImageModelsEnum.SDV3_ULTRA` - Stable Diffusion v3 Ultra
+- `ImageModelsEnum.SDV3_TURBO_LARGE` - Stable Diffusion v3 Turbo Large
+- `ImageModelsEnum.SDV3_LARGE` - Stable Diffusion v3 Large
+- `ImageModelsEnum.SDV3_MEDIUM` - Stable Diffusion v3 Medium
+- `ImageModelsEnum.SDV1_6` - Stable Diffusion v1.6
+- `ImageModelsEnum.SDV1XL` - Stable Diffusion XL 1024 v1.0
+- `ImageModelsEnum.SDV2XLBeta` - Stable Diffusion XL Beta v2.2.2
+- `ImageModelsEnum.SDV1_VIDEO` - Stable Diffusion v1 Video
+
+#### Video Models
+- `VideoModelsEnum.VSDV2Beta` - Stable Diffusion Video v2 Beta
 
 ### API Methods
 

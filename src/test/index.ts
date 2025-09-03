@@ -1,5 +1,4 @@
-import { IRequest } from '../interfaces/request.interface';
-import AIClient from '../index';
+import AIClient, { IRequest } from '../index.js';
 
 const userName = 'XXX@XXX';
 const password = 'XXX';
